@@ -23,7 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 ### yarn ###
-# used Zero-Install
+used Zero-Install
 .yarn/*
 !.yarn/cache
 !.yarn/patches
