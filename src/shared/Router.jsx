@@ -7,8 +7,11 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import MyPage from "../pages/MyPage";
 import DetailPost from "../pages/DetailPost";
+import { auth } from "../api/firebase";
 
 export default function Router() {
+  const currentUser = auth.currentUser;
+  const userId = currentUser?.uid;
   return (
     <BrowserRouter>
       <Header />
@@ -16,7 +19,7 @@ export default function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
-        <Route path="/myPage/:userId" element={<MyPage />} />
+        <Route path={`/myPage/:${userId}`} element={<MyPage />} />
         <Route path="/detailPost/:postId" element={<DetailPost />} />
       </Routes>
       <Footer />
