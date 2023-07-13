@@ -1,12 +1,22 @@
 {
   "users": [
     {
-      "userId": "OXQCD2DvcaRFCx4gfLQTf4w8oUR2",
-      "email": "test4@test.com",
-      "displayName": "test4",
+      "userId": "KL7P5L2Aj1Q7FMykSTKfh9kN3pf1",
+      "email": "test1@test.com",
+      "displayName": "jy",
       "password": "aA123456!",
       "photoURL": "",
-      "id": 2
+      "id": 1
+    }
+  ],
+  "posts": [
+    {
+      "writerId": "KL7P5L2Aj1Q7FMykSTKfh9kN3pf1",
+      "writer": "jy",
+      "postContent": "ㅇㅇㅇㅇ",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test1%40test.com%2FpostImg%2Fimg2.jpeg?alt=media&token=85ab3819-3032-470e-80a5-9feda21ff4f4",
+      "createdAt": "2023. 7. 13.",
+      "id": 1
     }
   ]
 }

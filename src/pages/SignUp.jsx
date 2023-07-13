@@ -164,8 +164,6 @@ export default function SignUp() {
     saveUserInfo(newUserData);
     mutation.mutate(newUserData);
 
-    // auth.currentUser;
-
     navigate("/");
   };
 
