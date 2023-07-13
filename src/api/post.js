@@ -21,3 +21,9 @@ export const addPost = async (newPost) => {
   );
   return response.data;
 };
+
+export const deletePost = async (id) => {
+  await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`, {
+    data: { id: id },
+  });
+};
