@@ -51,7 +51,8 @@ export default function WritePost() {
         writer: displayName,
         postContent,
         postImgUrl,
-        createdAt: today.toLocaleDateString(),
+        createdDate: today.toLocaleDateString(),
+        createdAt: +today,
       };
       mutation.mutate(newPost);
     } else {
@@ -64,16 +65,16 @@ export default function WritePost() {
       <form action="" onSubmit={handleSumbitPost}>
         <div className="">
           <div className="shrink-0">
-            <label class="block">
-              <span class="sr-only">Choose profile photo</span>
+            <label className="block">
+              <span className="sr-only">Choose profile photo</span>
               <input
                 type="file"
                 onChange={handleImgPreview}
-                class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
               />
             </label>
             <div
-              class="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
+              className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
               style={{
                 backgroundImage: `url(${imgSrc})`,
               }}
