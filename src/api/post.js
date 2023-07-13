@@ -1,16 +1,23 @@
 import axios from "axios";
 
-const getPosts = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`);
+export const getPosts = async () => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/posts?_sort=createdAt&_order=desc`
+  );
   return response.data;
 };
 
-const addPost = async (newPost) => {
+export const getPost = async (id) => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/posts?id=${id}`
+  );
+  return response.data;
+};
+
+export const addPost = async (newPost) => {
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/posts`,
     newPost
   );
   return response.data;
 };
-
-export { getPosts, addPost };

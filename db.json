@@ -7,16 +7,61 @@
       "password": "aA123456!",
       "photoURL": "",
       "id": 1
+    },
+    {
+      "userId": "eB45C5vjF1QN2BYf2ix7oDCibHs1",
+      "email": "test2@test.com",
+      "displayName": "test2",
+      "password": "aA123456!",
+      "photoURL": "",
+      "id": 2
     }
   ],
   "posts": [
     {
+      "writerId": "eB45C5vjF1QN2BYf2ix7oDCibHs1",
+      "writer": "test2",
+      "postContent": "aaa",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test2%40test.com%2FpostImg%2Falvan-nee-brFsZ7qszSY-unsplash.jpg?alt=media&token=a88398db-eea9-4801-98e7-f3146a7d2c45",
+      "createdDate": "2023. 7. 13.",
+      "createdAt": 1689251678685,
+      "id": 1
+    },
+    {
+      "writerId": "eB45C5vjF1QN2BYf2ix7oDCibHs1",
+      "writer": "test2",
+      "postContent": "",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test2%40test.com%2FpostImg%2Fimg3.jpeg?alt=media&token=4d8f644e-af0e-496c-8bb6-26f880389891",
+      "createdDate": "2023. 7. 13.",
+      "createdAt": 1689251698101,
+      "id": 2
+    },
+    {
+      "writerId": "eB45C5vjF1QN2BYf2ix7oDCibHs1",
+      "writer": "test2",
+      "postContent": "",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test2%40test.com%2FpostImg%2Fimg3.jpeg?alt=media&token=90029199-fa60-43f1-90b1-cf49753ebd9f",
+      "createdDate": "2023. 7. 13.",
+      "createdAt": 1689251705263,
+      "id": 3
+    },
+    {
       "writerId": "KL7P5L2Aj1Q7FMykSTKfh9kN3pf1",
       "writer": "jy",
-      "postContent": "ㅇㅇㅇㅇ",
-      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test1%40test.com%2FpostImg%2Fimg2.jpeg?alt=media&token=85ab3819-3032-470e-80a5-9feda21ff4f4",
-      "createdAt": "2023. 7. 13.",
-      "id": 1
+      "postContent": "'0'",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test1%40test.com%2FpostImg%2Fdaria-shatova-qBSIwo7H0qY-unsplash.jpg?alt=media&token=dfb3b378-601a-47f0-af24-3e68ca53a4ee",
+      "createdDate": "2023. 7. 13.",
+      "createdAt": 1689251756740,
+      "id": 4
+    },
+    {
+      "writerId": "KL7P5L2Aj1Q7FMykSTKfh9kN3pf1",
+      "writer": "jy",
+      "postContent": "-@",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test1%40test.com%2FpostImg%2Fimg2.jpeg?alt=media&token=0df62501-cb1e-4364-8666-037111630461",
+      "createdDate": "2023. 7. 13.",
+      "createdAt": 1689251775976,
+      "id": 5
     }
   ]
 }
