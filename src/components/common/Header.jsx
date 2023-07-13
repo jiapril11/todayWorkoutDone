@@ -9,6 +9,7 @@ export default function Header() {
   useEffect(() => {
     watchAuthStateChange((user) => {
       if (user) {
+        console.log(user);
         setUserChk((prev) => (prev = true));
       } else {
         setUserChk((prev) => (prev = false));

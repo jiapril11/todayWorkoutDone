@@ -4,8 +4,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
   signOut,
 } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,6 +29,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export const signUpWithFB = async (email, password) => {
   try {
@@ -28,11 +39,28 @@ export const signUpWithFB = async (email, password) => {
       email,
       password
     );
-    const user = userCredential.user;
+    return userCredential.user;
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
   }
+};
+
+export const updateUserProfile = async (displayName, photoURL) => {
+  try {
+    await updateProfile(auth.currentUser, {
+      displayName,
+      photoURL,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const saveUserInfo = async (userInfo) => {
+  const userData = { ...userInfo };
+  const collectionRef = collection(db, "users");
+  await addDoc(collectionRef, userData);
 };
 
 export const signInWithFB = async (email, password) => {

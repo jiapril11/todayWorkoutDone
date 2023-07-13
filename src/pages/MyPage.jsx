@@ -1,5 +1,14 @@
 import React from "react";
+import { auth } from "../api/firebase";
 
 export default function MyPage() {
-  return <div>MyPage</div>;
+  const currentUser = auth.currentUser;
+  // console.log(currentUser);
+  return (
+    <>
+      <div>{currentUser.uid}</div>
+      <div>{currentUser.displayName}</div>
+      <div>{currentUser.email}</div>
+    </>
+  );
 }
