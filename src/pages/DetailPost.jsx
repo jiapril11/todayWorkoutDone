@@ -16,6 +16,18 @@ export default function DetailPost() {
 
   const post = data[0];
 
+  const mutation = useMutation(deletePost, {
+    onSuccess: () => {
+      alert("게시물이 삭제되었습니다.");
+      navigate("/");
+    },
+  });
+
+  const handleDeletePost = async () => {
+    const confirmState = window.confirm("정말 삭제하시겠습니까?");
+    confirmState && mutation.mutate(postId);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -27,7 +39,6 @@ export default function DetailPost() {
   if (!data) {
     return <div>No data found</div>;
   }
-
   return (
     <div>
       <h2>DetailPost</h2>
@@ -46,11 +57,13 @@ export default function DetailPost() {
       </div>
       <div className="flex justify-between">
         <div>
-          <button onClick={(e) => navigate(-1)}>Back</button>
+          <button onClick={() => navigate(-1)}>Back</button>
         </div>
         {user?.uid === post.writerId && (
           <div className="flex gap-3">
-            <button className="bg-red-50">delete</button>
+            <button className="bg-red-50" onClick={handleDeletePost}>
+              delete
+            </button>
             <button className="bg-blue-50">modify</button>
           </div>
         )}
