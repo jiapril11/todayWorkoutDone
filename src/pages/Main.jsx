@@ -1,6 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { getUsers } from "../api/user";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../api/firebase";
 
 export default function Main() {
   const { isLoading, isError, data } = useQuery({
@@ -10,5 +12,20 @@ export default function Main() {
     staleTime: 5000,
   });
 
-  return <div>main</div>;
+  const navigate = useNavigate();
+  const goToPrivatePage = (e) => {
+    e.preventDefault();
+    if (auth?.currentUser?.uid) {
+      navigate("/writePost");
+    } else {
+      alert("로그인 후 이용해주세요");
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={goToPrivatePage}>write Post</button>
+      <div>main</div>
+    </div>
+  );
 }
