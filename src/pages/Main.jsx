@@ -4,6 +4,7 @@ import { getUsers } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../api/firebase";
 import { getPosts } from "../api/post";
+import Layout from "../components/common/Layout";
 
 export default function Main() {
   const { isLoading, isError, error, data } = useQuery({
@@ -27,25 +28,32 @@ export default function Main() {
   isError && <div>{error.message}</div>;
 
   return (
-    <div>
-      <button onClick={goToPrivatePage}>write Post</button>
-      <ul>
-        {data?.map((post) => {
-          return (
-            <li
-              key={post.id}
-              onClick={(e) => navigate(`/detailPost/${post.id}`)}
+    <div className="bg-neutral-800">
+      <Layout>
+        <div className="py-12">
+          <div className="flex justify-end pb-6">
+            <button
+              onClick={goToPrivatePage}
+              className="px-4 py-1 bg-sky-500 rounded text-sm text-white font-bold"
             >
-              <div
-                className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
-                style={{
-                  backgroundImage: `url(${post.postImgUrl})`,
-                }}
-              ></div>
-            </li>
-          );
-        })}
-      </ul>
+              포스트 작성하기
+            </button>
+          </div>
+          <ul className="grid grid-cols-4 gap-2">
+            {data?.map((post) => {
+              return (
+                <li
+                  key={post.id}
+                  onClick={(e) => navigate(`/detailPost/${post.id}`)}
+                  className="hover:cursor-pointer"
+                >
+                  <img className=" aspect-square" src={post.postImgUrl}></img>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Layout>
     </div>
   );
 }

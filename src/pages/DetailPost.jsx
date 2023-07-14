@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "react-query";
 import { deletePost, getPost } from "../api/post";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth } from "../api/firebase";
+import Layout from "../components/common/Layout";
 
 export default function DetailPost() {
   const user = auth.currentUser;
@@ -40,39 +41,56 @@ export default function DetailPost() {
     return <div>No data found</div>;
   }
   return (
-    <div>
-      <h2>DetailPost</h2>
-      <div className="flex justify-end gap-3">
-        <p>{post.writer}</p>
-        <p>{post.modifiedDate === "" ? post.createdDate : post.modifiedDate}</p>
-      </div>
-      <div
-        className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
-        style={{
-          backgroundImage: `url(${post.postImgUrl})`,
-        }}
-      ></div>
-      <div>
-        <p>{post.postContent}</p>
-      </div>
-      <div className="flex justify-between">
-        <div>
-          <button onClick={() => navigate(-1)}>Back</button>
-        </div>
-        {user?.uid === post.writerId && (
-          <div className="flex gap-3">
-            <button className="bg-red-50" onClick={handleDeletePost}>
-              delete
-            </button>
-            <button
-              onClick={() => navigate(`/modifyPost/${postId}`)}
-              className="bg-blue-50"
-            >
-              modify
-            </button>
+    <div className="bg-neutral-900 py-12">
+      <Layout>
+        <div className="w-[500px] mx-auto px-6 py-10 border border-lime-700 bg-neutral-800 rounded">
+          <div>
+            <div className="flex justify-end gap-3 mb-4 ">
+              <p className="text-white">{post.writer}</p>
+              <p className="text-neutral-400">
+                {post.modifiedDate === ""
+                  ? post.createdDate
+                  : post.modifiedDate}
+              </p>
+            </div>
+            <div
+              className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400 mx-auto"
+              style={{
+                backgroundImage: `url(${post.postImgUrl})`,
+              }}
+            ></div>
+            <div>
+              <p className="px-3 py-1 my-5 text-lime-300">{post.postContent}</p>
+            </div>
+            <div className="flex justify-between">
+              <div>
+                <button
+                  onClick={() => navigate(-1)}
+                  className="px-4 py-1 rounded font-bold text-sm bg-neutral-950 text-white"
+                >
+                  뒤로
+                </button>
+              </div>
+              {user?.uid === post.writerId && (
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleDeletePost}
+                    className="px-4 py-1 rounded font-bold text-sm bg-red-500 text-white"
+                  >
+                    삭제하기
+                  </button>
+                  <button
+                    onClick={() => navigate(`/modifyPost/${postId}`)}
+                    className="px-4 py-1 rounded font-bold text-sm bg-sky-500 text-white"
+                  >
+                    수정하기
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      </Layout>
     </div>
   );
 }

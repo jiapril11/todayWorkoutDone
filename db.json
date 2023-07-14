@@ -48,6 +48,16 @@
       "createdAt": 1689260521576,
       "id": 7,
       "modifiedDate": "2023. 7. 14."
+    },
+    {
+      "writerId": "fX5z47h7giO37RkAKeTBjIcITwY2",
+      "writer": "test3",
+      "postContent": "-_-",
+      "postImgUrl": "https://firebasestorage.googleapis.com/v0/b/todayworkoutdone.appspot.com/o/test3%40test.com%2FpostImg%2Fqijin-xu-vQUXUHjyy8A-unsplash.jpg?alt=media&token=fcc6a2f8-68bd-483b-bd1b-933ee124004b",
+      "createdDate": "2023. 7. 14.",
+      "createdAt": 1689315079405,
+      "modifiedDate": "2023. 7. 14.",
+      "id": 8
     }
   ]
 }
