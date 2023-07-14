@@ -27,3 +27,13 @@ export const deletePost = async (id) => {
     data: { id: id },
   });
 };
+
+export const modifyPost = async (modifiedPostInfo) => {
+  const { postId, modifiedPost } = modifiedPostInfo;
+  console.log(postId, modifiedPost);
+  const response = await axios.patch(
+    `${process.env.REACT_APP_SERVER_URL}/posts/${postId}`,
+    modifiedPost
+  );
+  return response.data;
+};

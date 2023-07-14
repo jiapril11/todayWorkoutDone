@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { deletePost, getPost } from "../api/post";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth } from "../api/firebase";
@@ -7,14 +7,14 @@ import { auth } from "../api/firebase";
 export default function DetailPost() {
   const user = auth.currentUser;
   const params = useParams();
-  const navigate = useNavigate();
   const { postId } = params;
+  const navigate = useNavigate();
 
   const { isLoading, isError, error, data } = useQuery("posts", () =>
     getPost(postId)
   );
 
-  const post = data[0];
+  const post = data && data[0];
 
   const mutation = useMutation(deletePost, {
     onSuccess: () => {
@@ -44,7 +44,7 @@ export default function DetailPost() {
       <h2>DetailPost</h2>
       <div className="flex justify-end gap-3">
         <p>{post.writer}</p>
-        <p>{post.createdDate}</p>
+        <p>{post.modifiedDate === "" ? post.createdDate : post.modifiedDate}</p>
       </div>
       <div
         className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
@@ -64,7 +64,12 @@ export default function DetailPost() {
             <button className="bg-red-50" onClick={handleDeletePost}>
               delete
             </button>
-            <button className="bg-blue-50">modify</button>
+            <button
+              onClick={() => navigate(`/modifyPost/${postId}`)}
+              className="bg-blue-50"
+            >
+              modify
+            </button>
           </div>
         )}
       </div>
