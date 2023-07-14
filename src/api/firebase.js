@@ -52,9 +52,7 @@ export const updateUserProfile = async (displayName, photoURL) => {
       displayName,
       photoURL,
     });
-  } catch (err) {
-    console.log(err.message);
-  }
+  } catch (err) {}
 };
 
 export const saveUserInfo = async (userInfo) => {

@@ -3,7 +3,6 @@ import { auth } from "../api/firebase";
 
 export default function MyPage() {
   const currentUser = auth.currentUser;
-  // console.log(currentUser);
   return (
     <>
       <div>{currentUser.uid}</div>
