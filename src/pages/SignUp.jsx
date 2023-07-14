@@ -3,6 +3,7 @@ import { saveUserInfo, signUpWithFB, updateUserProfile } from "../api/firebase";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../api/user";
 import { useQueryClient, useMutation } from "react-query";
+import Layout from "../components/common/Layout";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -105,10 +106,10 @@ export default function SignUp() {
         let msg = "";
         let currentState = false;
         if (newUser.pwd !== value) {
-          msg = "비밀번호가 일치하지 않음";
+          msg = "비밀번호가 일치하지 않습니다.";
           currentState = false;
         } else {
-          msg = "비밀번호가 일치";
+          msg = "비밀번호가 일치합니다.";
           currentState = true;
         }
         setValidationMsg((prev) => ({
@@ -177,78 +178,139 @@ export default function SignUp() {
   }, [validationState]);
 
   return (
-    <div>
-      <form onSubmit={submitNewUser}>
-        <div>
-          <div>
-            <label htmlFor="displayName">닉네임</label>
-            <input
-              id="displayName"
-              type="text"
-              name="displayName"
-              value={newUser.displayName}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <p>{validationMsg.displayNameMsg}</p>
-          </div>
+    <div className="bg-neutral-900 py-12">
+      <Layout>
+        <div className="w-[500px] mx-auto px-6 py-10 border border-lime-700 bg-neutral-800 rounded">
+          <h2 className="text-xl text-center text-white font-bold mb-5">
+            회원가입
+          </h2>
+          <form onSubmit={submitNewUser}>
+            <div>
+              <div className="flex gap-3 items-center">
+                <label
+                  htmlFor="displayName"
+                  className="text-white flex-shrink-0"
+                >
+                  닉네임
+                </label>
+                <input
+                  id="displayName"
+                  type="text"
+                  name="displayName"
+                  value={newUser.displayName}
+                  onChange={handleInputChange}
+                  required
+                  className="flex-1 px-3 py-1 rounded"
+                />
+              </div>
+              <div className="mt-2 mb-6">
+                <p
+                  className={`min-h-[20px] text-sm ${
+                    validationState.displayNameState
+                      ? `text-green-500`
+                      : `text-red-500`
+                  }`}
+                >
+                  {validationMsg.displayNameMsg}
+                </p>
+              </div>
+            </div>
+            <div>
+              <div className="flex gap-3 items-center">
+                <label htmlFor="email" className="text-white flex-shrink-0">
+                  이메일
+                </label>
+                <input
+                  className="flex-1 px-3 py-1  rounded"
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={newUser.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="mt-2 mb-6">
+                <p
+                  className={`min-h-[20px] text-sm ${
+                    validationState.emailState
+                      ? `text-green-500`
+                      : `text-red-500`
+                  }`}
+                >
+                  {validationMsg.emailMsg}
+                </p>
+              </div>
+            </div>
+            <div>
+              <div className="flex gap-3 items-center">
+                <label htmlFor="pwd" className="flex-shrink-0 text-white">
+                  비밀번호
+                </label>
+                <input
+                  className="flex-1 px-3 py-1  rounded"
+                  id="pwd"
+                  type="password"
+                  name="pwd"
+                  value={newUser.pwd}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="mt-2 mb-6">
+                <p
+                  className={`min-h-[20px] text-sm ${
+                    validationState.pwdState ? `text-green-500` : `text-red-500`
+                  }`}
+                >
+                  {validationMsg.pwdMsg}
+                </p>
+              </div>
+            </div>
+            <div>
+              <div className="flex gap-3 items-center">
+                <label
+                  htmlFor="confirmPwd"
+                  className="text-white flex-shrink-0"
+                >
+                  비밀번호 확인
+                </label>
+                <input
+                  className="flex-1 px-3 py-1  rounded"
+                  id="confirmPwd"
+                  type="password"
+                  name="confirmPwd"
+                  value={newUser.confirmPwd}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="mt-2 mb-6">
+                <p
+                  className={`min-h-[20px] text-sm ${
+                    validationState.confirmPwdState
+                      ? `text-green-500`
+                      : `text-red-500`
+                  }`}
+                >
+                  {validationMsg.confirmPwdMsg}
+                </p>
+              </div>
+            </div>
+            <div className="text-center">
+              <button
+                type="submit"
+                disabled={btnSubmitState}
+                className={`px-4 py-1 rounded font-bold text-sm ${
+                  btnSubmitState ? `bg-slate-300` : `bg-lime-400`
+                }`}
+              >
+                회원가입
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          <div>
-            <label htmlFor="email">이메일</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={newUser.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <p>{validationMsg.emailMsg}</p>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="pwd">비밀번호</label>
-            <input
-              id="pwd"
-              type="text"
-              name="pwd"
-              value={newUser.pwd}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <p>{validationMsg.pwdMsg}</p>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="confirmPwd">비밀번호 확인</label>
-            <input
-              id="confirmPwd"
-              type="text"
-              name="confirmPwd"
-              value={newUser.confirmPwd}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <p>{validationMsg.confirmPwdMsg}</p>
-          </div>
-        </div>
-        <div>
-          <button type="submit" disabled={btnSubmitState}>
-            signup
-          </button>
-        </div>
-      </form>
+      </Layout>
     </div>
   );
 }

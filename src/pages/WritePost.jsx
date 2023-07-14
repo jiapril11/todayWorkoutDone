@@ -4,6 +4,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useQueryClient, useMutation } from "react-query";
 import { addPost } from "../api/post";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/common/Layout";
 
 export default function WritePost() {
   const [postContent, setPostContent] = useState("");
@@ -62,40 +63,54 @@ export default function WritePost() {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={handleSumbitPost}>
-        <div className="">
-          <div className="shrink-0">
-            <label className="block">
-              <span className="sr-only">Choose profile photo</span>
+    <div className="bg-neutral-900 py-12">
+      <Layout>
+        <div className="w-[500px] mx-auto px-6 py-10 border border-lime-700 bg-neutral-800 rounded">
+          <form action="" onSubmit={handleSumbitPost}>
+            <div>
+              <div className="shrink-0">
+                <label className="block mb-4">
+                  <span className="sr-only">Choose profile photo</span>
+                  <input
+                    type="file"
+                    onChange={handleImgPreview}
+                    className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-100 file:text-sky-500 hover:file:bg-sky-100"
+                  />
+                </label>
+                <div
+                  className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400 rounded mx-auto"
+                  style={{
+                    backgroundImage: `url(${imgSrc})`,
+                  }}
+                  alt="Current profile photo"
+                />
+              </div>
+            </div>
+            <div className="mt-8 flex items-center gap-3">
+              <label htmlFor="content" className="text-white flex-shrink-0">
+                내용
+              </label>
               <input
-                type="file"
-                onChange={handleImgPreview}
-                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                id="content"
+                type="text"
+                value={postContent}
+                onChange={(e) => {
+                  setPostContent(e.target.value);
+                }}
+                className="flex-1 rounded px-3 py-1"
               />
-            </label>
-            <div
-              className="h-96 w-96 object-cover bg-cover bg-center bg-slate-400"
-              style={{
-                backgroundImage: `url(${imgSrc})`,
-              }}
-              alt="Current profile photo"
-            />
-          </div>
+            </div>
+            <div className="text-center mt-10">
+              <button
+                type="submit"
+                className="px-4 py-1 rounded font-bold text-sm bg-sky-500 text-white"
+              >
+                등록
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          <label htmlFor="">내용</label>
-          <input
-            type="text"
-            value={postContent}
-            onChange={(e) => {
-              setPostContent(e.target.value);
-            }}
-            className="bg-violet-50"
-          />
-        </div>
-        <button type="submit">등록</button>
-      </form>
+      </Layout>
     </div>
   );
 }
