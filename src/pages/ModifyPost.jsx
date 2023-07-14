@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { auth, storage } from "../api/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useQueryClient, useMutation } from "react-query";
-import { addPost } from "../api/post";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { getPost, modifyPost } from "../api/post";
 
-export default function WritePost() {
-  const [postContent, setPostContent] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
+export default function ModifyPost() {
+  const user = auth.currentUser;
+  const params = useParams();
+  const { postId } = params;
   const navigate = useNavigate();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const { isLoading, isError, error, data } = useQuery("posts", () =>
+    getPost(postId)
+  );
+
+  const post = data && data[0];
+  const [postContent, setPostContent] = useState(post?.postContent);
+  const [imgSrc, setImgSrc] = useState(post?.postImgUrl);
 
   const queryClient = useQueryClient();
-  const mutation = useMutation(addPost, {
-    onSuccess: (data) => {
+  const mutation = useMutation(modifyPost, {
+    onSuccess: () => {
       queryClient.invalidateQueries("posts");
-      alert("글이 등록되었습니다.");
-      navigate(`/detailPost/${data.id}`);
+      alert("글이 수정되었습니다.");
+      navigate(`/detailPost/${postId}`);
     },
   });
 
@@ -36,34 +45,32 @@ export default function WritePost() {
     }
   };
 
-  const handleSumbitPost = async (e) => {
+  const handleSumbitModifiedPost = async (e) => {
     e.preventDefault();
-    const { uid, email, displayName } = auth.currentUser;
-    let postImgUrl = "";
+    const { email } = user;
+    let postImgUrl = post?.postImgUrl;
 
     if (!!selectedFile) {
       const imgRef = ref(storage, `${email}/postImg/${selectedFile.name}`);
       await uploadBytes(imgRef, selectedFile);
       postImgUrl = await getDownloadURL(imgRef);
-      const today = new Date();
-      const newPost = {
-        writerId: uid,
-        writer: displayName,
+    }
+    const today = new Date();
+    const modifiedPostInfo = {
+      postId,
+      modifiedPost: {
         postContent,
         postImgUrl,
-        createdDate: today.toLocaleDateString(),
-        createdAt: +today,
-        modifiedDate: "",
-      };
-      mutation.mutate(newPost);
-    } else {
-      alert("이미지 등록은 필수입니다");
-    }
+        modifiedDate: today.toLocaleDateString(),
+      },
+    };
+    mutation.mutate(modifiedPostInfo);
   };
-
   return (
     <div>
-      <form action="" onSubmit={handleSumbitPost}>
+      <h2>ModifyPost</h2>
+
+      <form action="" onSubmit={handleSumbitModifiedPost}>
         <div className="">
           <div className="shrink-0">
             <label className="block">
@@ -94,8 +101,12 @@ export default function WritePost() {
             className="bg-violet-50"
           />
         </div>
-        <button type="submit">등록</button>
+        <button type="submit">modify</button>
       </form>
+
+      <div>
+        <button onClick={() => navigate(-1)}>Back</button>
+      </div>
     </div>
   );
 }
